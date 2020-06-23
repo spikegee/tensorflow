@@ -68,7 +68,6 @@ find tensorflow/lite -name '*.h' \
     -not -path 'tensorflow/lite/examples/*' \
     -not -path 'tensorflow/lite/gen/*' \
     -not -path 'tensorflow/lite/toco/*' \
-    -not -path 'tensorflow/lite/nnapi/*' \
     -not -path 'tensorflow/lite/java/*' \
     | tar -cf $FW_DIR_TFLITE_HDRS/tmp.tar -T -
 cd $FW_DIR_TFLITE_HDRS
@@ -77,6 +76,13 @@ rm -f tmp.tar
 
 echo "Headers, populating: Flatbuffer"
 cd $TFLITE_DIR/tools/make/downloads/flatbuffers/include/
+find . -name '*.h' | tar -cf $FW_DIR_TFLITE_HDRS/tmp.tar -T -
+cd $FW_DIR_TFLITE_HDRS
+tar xf tmp.tar
+rm -f tmp.tar
+
+echo "Headers, populating: Absl"
+cd $TFLITE_DIR/tools/make/downloads/absl/
 find . -name '*.h' | tar -cf $FW_DIR_TFLITE_HDRS/tmp.tar -T -
 cd $FW_DIR_TFLITE_HDRS
 tar xf tmp.tar
